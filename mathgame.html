@@ -1,0 +1,226 @@
+<html>
+<head>
+	 <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+	  <script src="highscores.js"></script>
+<style type="text/css">
+body{
+	text-align: center;
+	font-weight: bold;
+}
+#wrapper{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: -100px;
+  margin-left: -100px;
+
+}
+input{
+	text-align: center;
+}
+
+a{
+	background-color:rgba(0,0,0,0.5);
+	color:white;
+	border-radius: 5px;
+	padding:2px;
+}
+a:hover{
+	cursor: hand;
+}
+</style>
+	<title>Math Gamer</title>
+</head>
+<body>
+	<input type="button" value="addition" onclick="addition()">
+	<input type="button" value="subtraction" onclick="sub1()">
+	<input type="button" value="division" onclick="div()">
+	<input type="button" value="multiplication" onclick="multi()">
+	<input type="button" value="View Highscores" onclick="$('#hscores').fadeTo('slow',1)">
+<div id="wrapper">
+	<div id="content" style="display:none">
+<p id="question"></p> 
+<input type="text" id="answer" placeholder="ANSWER" autofocus><br>
+<input type="button" value="Answer!" onclick="submit();" id="submit">
+<input type="button" value="reset" style="display:none" id="reset" onclick="reset()">
+<p id="result"></p><a id="score"></a>
+<div id="hsentry" style="display:none"><input type="text" id="name" placeholder="Enter Name"> <input type="button" value="Submit Score!" onclick="submitscore()"></div>
+</div>
+</div>
+<center>
+<div id="hscores" style="display:none;">
+	<a id="hidescore" style="width:100px;">Hide Scores</a>
+<table id="highscores" border="1" cellspacing="1" style="width:600px;text-align:center;">
+        <th>Name</th>
+        <th>Score</th>
+      </table>
+</div>
+</center>
+
+</body>
+<script type="text/javascript">
+var score=0;
+
+
+$("#hidescore").click(function(){
+	$("#hscores").slideUp();
+
+});
+
+function submitscore() {
+	if(document.getElementById("name").value.length>2){
+	addhighscore(document.getElementById("name").value,score);
+	reset();
+
+	}
+	else{
+		alert('enter a proper name!');
+		return false;
+}
+
+}
+
+
+
+
+
+
+
+
+
+
+function sizecheck() {
+
+size = $('#question').css("fontSize");
+if(size=="40px"){
+	$('#result').html("You lose");
+	answer.value="TOO DAMN LATE"
+	
+	$('#question').html("<img src='http://i137.photobucket.com/albums/q235/melzpoo/fire/Feuer46.gif'>")
+	
+
+
+
+
+	
+	
+	document.getElementById('submit').disabled = true;
+	$('#reset').slideDown();
+	if(score>5){
+	$('#hsentry').show();
+}
+}
+
+
+	
+
+
+
+
+
+
+}
+setInterval(sizecheck,10);
+var question = document.getElementById('question');
+var answer = document.getElementById('answer');
+var random1;
+var random2;
+var sign;
+var answer2;
+
+answer.addEventListener("keydown", function(e) {
+    if (!e) { var e = window.event; }
+
+    // Enter is pressed
+    if (e.keyCode == 13) { submit(); }
+}, false);
+
+
+function submit() {
+useranswer=answer.value
+answer.value=null
+
+if(sign==="+"){
+	answer2=random1+random2;
+}
+if(sign==="-"){
+	answer2=random1-random2;
+}
+if(sign==="x"){
+	answer2=random1*random2;
+}
+
+if(useranswer==answer2){
+	score++;
+$('#result').html("Score: ");
+$('#score').html(score);
+$('#question').stop();
+$('#question').css({fontSize:'20px'});
+
+if(sign==="+"){
+addition();
+}
+
+if(sign==="-"){
+sub1();
+	
+	}
+
+	
+
+	}
+
+	
+	
+	
+
+}
+
+function addition() {
+sign="+"
+$("#content").show();
+random1 = Math.floor((Math.random()*10)+1);
+random2 = Math.floor((Math.random()*10)+1);
+question.innerHTML= random1 + sign + random2;
+
+$('#question').animate({fontSize:'40px'}, 5000)
+
+
+
+}
+
+function reset() {
+	$('#question').css({fontSize:'20px'});
+	$('#question').html(" ");
+	$('#content').hide();
+	$('#hsentry').hide();
+	score=0;
+	$('#result').html("Good Luck");
+	$('#reset').hide();
+	answer.value=null
+	dead=false;
+	document.getElementById('submit').disabled = false;
+
+}
+
+function sub1() {
+$("#content").show();
+sign="-";
+random1 = Math.floor((Math.random()*10)+1);
+random2 = Math.floor((Math.random()*10)+1);
+while((random1-random2)<0){
+random1 = Math.floor((Math.random()*10)+1);
+random2 = Math.floor((Math.random()*10)+1);
+}
+
+question.innerHTML= random1 + sign + random2;
+
+$('#question').animate({fontSize:'40px'}, 5000)
+
+
+
+}
+
+
+</script>
+</html>
